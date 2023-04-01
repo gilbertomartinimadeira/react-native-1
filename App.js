@@ -10,24 +10,23 @@ import MyStyles from "./styles/MyStyles";
 import { useState } from "react";
 
 export default function App() {
-  const [enteredGoalText, setEnteredGoalText] = useState("");
+  const [enteredGoal, setEnteredGoal] = useState({
+    text: "",
+    key: 0,
+  });
+
   const [courseGoals, setCourseGoals] = useState([]);
 
-  const goalElements = courseGoals.map((c, i) => (
-    <View style={MyStyles.goalItem} key={i}>
-      <Text style={MyStyles.goalItemText}>{c}</Text>
-    </View>
-  ));
-
   function goalInputHandler(enteredText) {
-    setEnteredGoalText(enteredText);
+    setEnteredGoal((prevEnteredGoal) => {
+      return { ...prevEnteredGoal, text: enteredText };
+    });
   }
 
   function addGoalHandler() {
     setCourseGoals((prevGoals) => {
-      return [...prevGoals, enteredGoalText];
+      return [...prevGoals, { text: enteredGoal.text }];
     });
-    setEnteredGoalText("");
   }
 
   return (
@@ -37,13 +36,22 @@ export default function App() {
           style={MyStyles.textInput}
           placeholder="Your Course Goal"
           onChangeText={goalInputHandler}
-          value={enteredGoalText}
+          value={enteredGoal.text}
         ></TextInput>
         <Button title="Add Goal" onPress={addGoalHandler}></Button>
       </View>
 
       <View style={MyStyles.goalsContainer}>
-        <FlatList data={courseGoals}>{goalElements}</FlatList>
+        <FlatList
+          data={courseGoals}
+          renderItem={(itemData) => {
+            return (
+              <View style={MyStyles.goalItem} key={itemData.item.key}>
+                <Text style={MyStyles.goalItemText}>{itemData.item.text}</Text>
+              </View>
+            );
+          }}
+        />
       </View>
     </View>
     // <View
