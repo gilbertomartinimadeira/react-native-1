@@ -8,8 +8,16 @@ export default function GoalList(props) {
     },
   });
 
+  const onGoalItemPress = (item) => {
+    alert(`item ${item} pressed`);
+  };
+
   const renderItem = (itemData) => (
-    <GoalItem key={itemData.item.key} text={itemData.item.text} />
+    <GoalItem
+      key={itemData.item.key}
+      text={itemData.item.text}
+      onPress={onGoalItemPress}
+    />
   );
 
   return (
