@@ -12,13 +12,22 @@ export default function GoalItem(props) {
     goalItemText: {
       color: "white",
     },
+    pressedItem: {
+      opacity: 0.5,
+    },
   });
 
   return (
-    <Pressable onPress={() => props.onPress(props.text)}>
-      <View style={MyStyles.goalItem} key={props.key}>
-        <Text style={MyStyles.goalItemText}>{props.text}</Text>
-      </View>
-    </Pressable>
+    <View style={MyStyles.goalItem}>
+      <Pressable
+        android_ripple={{ color: "#ddd" }}
+        onPress={() => props.onPress(props.goal.id)}
+        style={({ pressed }) => pressed && MyStyles.pressedItem}
+      >
+        <Text style={MyStyles.goalItemText}>
+          {props.goal.text} - {props.goal.id}
+        </Text>
+      </Pressable>
+    </View>
   );
 }

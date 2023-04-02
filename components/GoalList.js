@@ -8,21 +8,25 @@ export default function GoalList(props) {
     },
   });
 
-  const onGoalItemPress = (item) => {
-    props.setCourseGoals(item);
+  const onGoalItemPress = (id) => {
+    props.deleteGoal(id);
   };
 
   const renderItem = (itemData) => (
     <GoalItem
-      key={itemData.item.key}
-      text={itemData.item.text}
+      key={itemData.item.id}
+      goal={itemData.item}
       onPress={onGoalItemPress}
     />
   );
 
   return (
     <View style={MyStyles.goalsContainer}>
-      <FlatList data={props.courseGoals} renderItem={renderItem} />
+      <FlatList
+        data={props.courseGoals}
+        renderItem={renderItem}
+        keyExtractor={(goal) => goal.id}
+      />
     </View>
   );
 }
