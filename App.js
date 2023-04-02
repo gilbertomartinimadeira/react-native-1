@@ -12,6 +12,14 @@ export default function App() {
     });
   }
 
+  const deleteGoal = (goal) => {
+    setCourseGoals((prevGoals) => {
+      return prevGoals.filter((g) => {
+        g.id !== goal.id;
+      });
+    });
+  };
+
   const MyStyles = StyleSheet.create({
     appContainer: {
       padding: 50,
@@ -25,7 +33,7 @@ export default function App() {
   return (
     <View style={MyStyles.appContainer}>
       <GoalInput addGoalHandler={addGoalHandler} />
-      <GoalList courseGoals={courseGoals} />
+      <GoalList courseGoals={courseGoals} deleteGoal={deleteGoal} />
     </View>
   );
 }

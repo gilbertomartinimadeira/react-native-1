@@ -9,7 +9,7 @@ export default function GoalList(props) {
   });
 
   const onGoalItemPress = (item) => {
-    alert(`item ${item} pressed`);
+    props.setCourseGoals(item);
   };
 
   const renderItem = (itemData) => (
